@@ -1,0 +1,37 @@
+{
+  "name": "lsty.sdtd.webui",
+  "private": true,
+  "version": "7.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@microsoft/signalr": "^6.0.4",
+    "axios": "^0.26.1",
+    "element-plus": "^2.1.11",
+    "leaflet": "^1.8.0",
+    "leaflet-measure": "^3.1.0",
+    "leaflet-minimap": "^3.6.1",
+    "leaflet.markercluster": "^1.5.3",
+    "leaflet.zoomslider": "^0.7.1",
+    "mitt": "^3.0.0",
+    "moment": "^2.29.3",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.14",
+    "vue3-menus": "^1.1.2",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.1",
+    "sass": "^1.50.1",
+    "vite": "^2.9.5"
+  },
+  "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
+  "main": "vite.config.js",
+  "author": "IceCoffee",
+  "license": "MIT"
+}
