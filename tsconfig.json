@@ -1,0 +1,7 @@
+{
+  "include": [
+    "./src/components/shims-vue.d.ts",
+    "./auto-imports.d.ts",
+    "./components.d.ts"
+  ]
+}

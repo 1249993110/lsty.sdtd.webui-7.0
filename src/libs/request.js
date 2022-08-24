@@ -1,23 +1,20 @@
-import Axios from 'axios';
-import NProgress from '../utils/nprogress';
+import axios from 'axios';
+import nProgress from '../plugins/nprogress';
 import { ElMessage } from 'element-plus';
-import Router from '../router';
-import moment from 'moment';
-import Store, { accessTokenKey } from '../store';
+import router from '../router';
+import useUserInfoStore from '../store/user-info';
 
-Date.prototype.toISOString = function () {
-    return moment(this).format('YYYY-MM-DD HH:mm:ss');
-};
+const userInfoStore = useUserInfoStore();
 
-const service = Axios.create({
+const service = axios.create({
     baseURL: import.meta.env.VITE_APP_API_BASE_URL,
     timeout: import.meta.env.VITE_APP_API_TIMEOUT,
 });
 
 service.interceptors.request.use(
     (config) => {
-        NProgress.start();
-        config.headers[accessTokenKey] = Store.state.accessToken;
+        nProgress.start();
+        config.headers['access-token'] = userInfoStore.accessToken;
         return config;
     },
     (error) => {
@@ -27,11 +24,11 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
     (response) => {
-        NProgress.done();
+        nProgress.done();
         return response.data.data;
     },
     (error) => {
-        NProgress.done();
+        nProgress.done();
 
         if (!error.response) {
             ElMessage.error(error.message);
@@ -41,21 +38,17 @@ service.interceptors.response.use(
         const status = error.response.status;
         switch (status) {
             case 401:
-                Router.push('/login');
+                router.push('/login');
                 break;
             case 404:
                 ElMessage.error('请求的资源不存在');
                 break;
+            case 400:
+            case 500:
+                ElMessage.error(error.response.data.error.message);
+                break;
             default:
-                const data = error.response.data;
-                switch (data.code) {
-                    case 400:
-                    case 500:
-                        ElMessage.error(data.message);
-                        break;
-                    default:
-                        ElMessage.error(error.message);
-                }
+                ElMessage.error(error.message);
         }
 
         return Promise.reject(error);

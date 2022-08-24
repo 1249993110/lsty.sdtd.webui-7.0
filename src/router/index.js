@@ -1,13 +1,25 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import nProgress from '../plugins/nprogress';
 import Layout from '../layout/Index.vue';
-import LiveMap from '../views/Controls//LiveMap.vue';
-import NProgress from '../utils/nprogress';
-import Store from '../store';
+import Home from '../views/Home.vue';
+import { useUserInfoStore } from '../store/user-info';
+import { usekeepAliveStore } from '../store/keep-alive';
+
+// 有name的即需要keep-alive的, 对应views组件名称
+// 将routes拍平以解决缓存层级超过两层失效
 
 const routes = [
     {
         path: '/',
-        redirect: '/controls/live-map',
+        redirect: '/home',
+        component: Layout,
+        children: [
+            {
+                path: 'home',
+                name: 'Home',
+                component: Home,
+            },
+        ],
     },
     {
         path: '/controls',
@@ -15,37 +27,37 @@ const routes = [
         children: [
             {
                 path: 'live-map',
-                name: 'live-map',
-                component: LiveMap,
+                name: 'Controls.LiveMap',
+                component: () => import('../views/Controls/LiveMap.vue'),
             },
             {
                 path: 'online-players',
-                name: 'online-players',
+                name: 'Controls.OnlinePlayers',
                 component: () => import('../views/Controls/OnlinePlayers.vue'),
             },
             {
                 path: 'history-players',
-                name: 'history-players',
+                name: 'Controls.HistoryPlayers',
                 component: () => import('../views/Controls/HistoryPlayers.vue'),
             },
             {
                 path: 'live-chat',
-                name: 'live-chat',
+                name: 'Controls.LiveChat',
                 component: () => import('../views/Controls/LiveChat.vue'),
             },
             {
                 path: 'chat-record',
-                name: 'chat-record',
+                name: 'Controls.ChatRecord',
                 component: () => import('../views/Controls/ChatRecord.vue'),
             },
             {
                 path: 'console',
-                name: 'console',
+                name: 'Controls.Console',
                 component: () => import('../views/Controls/Console.vue'),
             },
             {
                 path: 'item-blocks',
-                name: 'item-blocks',
+                name: 'Controls.ItemBlocks',
                 component: () => import('../views/Controls/ItemBlocks.vue'),
             },
         ],
@@ -56,7 +68,7 @@ const routes = [
         children: [
             {
                 path: 'global-settings',
-                name: 'global-settings',
+                name: 'Functions.GlobalSettings',
                 component: () => import('../views/Functions/GlobalSettings.vue'),
             },
         ],
@@ -67,12 +79,12 @@ const routes = [
         children: [
             {
                 path: 'settings',
-                name: 'points-system-settings',
+                name: 'Functions.PointsSystem.Settings',
                 component: () => import('../views/Functions/PointsSystem/Settings.vue'),
             },
             {
                 path: 'management',
-                name: 'points-system-management',
+                name: 'Functions.PointsSystem.Management',
                 component: () => import('../views/Functions/PointsSystem/Management.vue'),
             },
         ],
@@ -83,12 +95,12 @@ const routes = [
         children: [
             {
                 path: 'settings',
-                name: 'game-store-settings',
+                name: 'Functions.GameStore.Settings',
                 component: () => import('../views/Functions/GameStore/Settings.vue'),
             },
             {
                 path: 'management',
-                name: 'game-store-management',
+                name: 'Functions.GameStore.Management',
                 component: () => import('../views/Functions/GameStore/Management.vue'),
             },
         ],
@@ -99,7 +111,7 @@ const routes = [
         children: [
             {
                 path: 'settings',
-                name: 'tele-system-friend-settings',
+                name: 'Functions.TeleSystem.Friend.Settings',
                 component: () => import('../views/Functions/TeleSystem/TeleportFriend/Settings.vue'),
             },
         ],
@@ -110,12 +122,12 @@ const routes = [
         children: [
             {
                 path: 'settings',
-                name: 'tele-system-city-settings',
+                name: 'Functions.TeleSystem.TeleportCity.Settings',
                 component: () => import('../views/Functions/TeleSystem/TeleportCity/Settings.vue'),
             },
             {
                 path: 'management',
-                name: 'tele-system-city-management',
+                name: 'Functions.TeleSystem.TeleportCity.Management',
                 component: () => import('../views/Functions/TeleSystem/TeleportCity/Management.vue'),
             },
         ],
@@ -126,12 +138,12 @@ const routes = [
         children: [
             {
                 path: 'settings',
-                name: 'tele-system-home-settings',
+                name: 'Functions.TeleSystem.TeleportHome.Settings',
                 component: () => import('../views/Functions/TeleSystem/TeleportHome/Settings.vue'),
             },
             {
                 path: 'management',
-                name: 'tele-system-home-management',
+                name: 'Functions.TeleSystem.TeleportHome.Management',
                 component: () => import('../views/Functions/TeleSystem/TeleportHome/Management.vue'),
             },
         ],
@@ -157,23 +169,26 @@ const router = createRouter({
     routes,
 });
 
+const userInfoStore = useUserInfoStore();
+
 router.beforeEach((to, from, next) => {
-    NProgress.start();
+    nProgress.start();
     if (to.path === '/login') {
-        Store.commit('setAccessToken');
+        userInfoStore.setAccessToken('');
         next();
-    } else if (!Store.getters['getAccessToken']) {
+    } else if (!userInfoStore.isLogin) {
         next('/login');
     } else {
-        if(Store.getters['getActivePages'].length === 0){
-            Store.commit('addActivePage', to.name);
+        const keepAliveStore = usekeepAliveStore();
+        if (keepAliveStore.activePages.length === 0 && to.name) {
+            keepAliveStore.addPage(to.path);
         }
         next();
     }
 });
 
 router.afterEach((to, from) => {
-    NProgress.done();
+    nProgress.done();
 });
 
 export default router;

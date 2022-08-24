@@ -41,7 +41,7 @@
 
 <script>
 export default {
-    name: 'teleport-city-management',
+    name: 'Functions.TeleportSystem.TeleportCity.Management',
 };
 </script>
 

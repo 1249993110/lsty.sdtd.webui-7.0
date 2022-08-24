@@ -36,7 +36,7 @@
 
 <script>
 export default {
-    name: 'game-store-settings',
+    name: 'Functions.GameStore.Settings',
 };
 </script>
 

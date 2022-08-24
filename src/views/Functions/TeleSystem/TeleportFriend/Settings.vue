@@ -42,7 +42,7 @@
 
 <script>
 export default {
-    name: 'teleport-friend-settings',
+    name: 'Functions.TeleportSystem.TeleportFriend.Settings',
 };
 </script>
 

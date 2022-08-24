@@ -78,7 +78,7 @@
 
 <script>
 export default {
-    name: 'teleport-home-settings',
+    name: 'Functions.TeleportSystem.TeleportHome.Settings',
 };
 </script>
 

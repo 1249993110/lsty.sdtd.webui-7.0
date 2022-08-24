@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: 'live-chat',
+    name: 'Controls.LiveChat',
 };
 </script>
 

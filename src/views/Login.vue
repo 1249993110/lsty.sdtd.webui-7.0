@@ -4,16 +4,16 @@
             <div class="login-box-title">
                 <span>天依七日杀后台管理系统</span>
             </div>
-            <el-form :model="params" :rules="rules" ref="loginRef" label-width="0px" class="login-box-content">
+            <el-form :model="formModel" :rules="rules" ref="loginRef" label-width="0px" class="login-box-content">
                 <el-form-item prop="userName">
-                    <el-input disabled v-model="params.userName">
+                    <el-input disabled v-model="formModel.userName">
                         <template #prepend>
                             <el-button :icon="User"></el-button>
                         </template>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="accessToken">
-                    <el-input type="password" placeholder="AccessToken" v-model="params.accessToken" @keyup.enter="submitForm">
+                    <el-input type="password" placeholder="AccessToken" v-model="formModel.accessToken" @keyup.enter="submitForm">
                         <template #prepend>
                             <el-button :icon="Lock"></el-button>
                         </template>
@@ -28,18 +28,15 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue';
-import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
 import { ElMessage as message } from 'element-plus';
 import { User, Lock } from '@element-plus/icons-vue';
 import { signIn } from '../api/account';
-import { start as startSignalR } from '../lib/signalR';
+import { useUserInfoStore } from '../store/user-info';
 
-const store = useStore();
 const router = useRouter();
+const userInfoStore = useUserInfoStore();
 
-const params = reactive({
+const formModel = reactive({
     userName: '系统管理员',
     accessToken: '',
 });
@@ -51,11 +48,10 @@ const loginRef = ref();
 const submitForm = async () => {
     await loginRef.value.validate();
     try {
-        store.commit('setAccessToken', params.accessToken);
+        userInfoStore.setAccessToken(formModel.accessToken);
         await signIn();
         message.success('登录成功');
-        startSignalR();
-        store.commit('addActivePage', 'live-map');
+        router.push('/home');
     } catch {
         message.error('登录失败');
     }

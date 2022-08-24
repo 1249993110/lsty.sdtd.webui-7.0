@@ -39,7 +39,7 @@
 
 <script>
 export default {
-    name: 'points-system-settings',
+    name: 'Functions.PointsSystem.Settings',
 };
 </script>
 

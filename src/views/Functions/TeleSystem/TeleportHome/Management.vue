@@ -43,7 +43,7 @@
 
 <script>
 export default {
-    name: 'teleport-home-management',
+    name: 'Functions.TeleportSystem.TeleportHome.Management',
 };
 </script>
 

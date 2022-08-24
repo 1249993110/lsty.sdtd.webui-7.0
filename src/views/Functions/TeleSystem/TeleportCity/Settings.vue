@@ -42,7 +42,7 @@
 
 <script>
 export default {
-    name: 'teleport-city-settings',
+    name: 'Functions.TeleportSystem.TeleportCity.Settings',
 };
 </script>
 

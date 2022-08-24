@@ -29,7 +29,7 @@
 
 <script>
 export default {
-    name: 'item-blocks',
+    name: 'Controls.ItemBlocks',
 };
 </script>
 

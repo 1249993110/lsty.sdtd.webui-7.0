@@ -8,7 +8,7 @@
             text-color="#fff"
             active-text-color="#ffd04b"
         >
-            <MenuItem :menuList="menuList"></MenuItem>
+            <MenuTree :items="items"></MenuTree>
         </el-menu>
     </div>
 </template>
@@ -27,7 +27,7 @@ const selectedMenu = computed(() => {
     return route.name;
 });
 
-const menuList = menus;
+const items = menus;
 
 const handleSelectMenu = (menuName) => {
     const menu = getMenuByName(menuName);

@@ -1,4 +1,6 @@
-import Store from '../../store';
+import { useUserInfoStore } from '../../store/user-info';
+
+const userInfoStore = useUserInfoStore();
 
 export function getSdtdTileLayer(mapInfo, initTime, isMiniMap = false) {
     const url = import.meta.env.VITE_APP_MAP_TILE_URL + '{z}/{x}/{y}?access-token={accessToken}&t={time}';
@@ -10,7 +12,7 @@ export function getSdtdTileLayer(mapInfo, initTime, isMiniMap = false) {
         tileSize: mapInfo.tileSize,
         time: initTime,
         attribution: '&copy; <a href="https://7dtd.illy.bz/wiki/Server%20fixes" target="_blank">Alloc Mod</a> contributors',
-        accessToken: Store.getters['getAccessToken'],
+        accessToken: userInfoStore.accessToken,
     });
 
     tileLayer.getTileUrl = function (coords) {

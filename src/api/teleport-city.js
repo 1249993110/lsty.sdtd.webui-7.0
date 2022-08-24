@@ -1,4 +1,4 @@
-import http from '../utils/request';
+import http from '../libs/request';
 
 /**
  * 获取城市传送配置

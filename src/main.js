@@ -1,19 +1,25 @@
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import App from './App.vue';
-import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
-import 'normalize.css';
-import './assets/styles/common.scss';
-import './assets/iconfont/iconfont';
+import useElementPlus from './plugins/element';
 import Icon from './components/Icon.vue';
-import Router from './router';
-import Store from './store';
-import locale from 'element-plus/lib/locale/lang/zh-cn';
-import './lib/signalR';
+import router from './router';
+
+import './plugins/moment';
+import './libs/signalR';
+
+import 'normalize.css';
+import './assets/iconfont/iconfont';
+import './assets/styles/global.scss';
 
 const app = createApp(App);
-app.use(ElementPlus, { locale });
-app.use(Router);
-app.use(Store);
+useElementPlus(app);
+app.use(createPinia());
+app.use(router);
 app.component('Icon', Icon);
 app.mount('#app');
+
+if (import.meta.env.DEV) {
+    // 生成动态导入的 ElementPlus 组件 ts 语法提示
+    import.meta.glob('./views/**/*.vue', { eager: true });
+}

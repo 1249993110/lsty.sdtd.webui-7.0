@@ -1,4 +1,4 @@
-import http from '../utils/request';
+import http from '../libs/request';
 
 /**
  * 获取积分系统配置

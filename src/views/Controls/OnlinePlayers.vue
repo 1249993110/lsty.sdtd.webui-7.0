@@ -28,7 +28,7 @@
 
 <script>
 export default {
-    name: 'online-players',
+    name: 'Controls.OnlinePlayers',
 };
 </script>
 

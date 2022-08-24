@@ -51,7 +51,7 @@
 </template>
 <script>
 export default {
-    name: 'history-players',
+    name: 'Controls.HistoryPlayers',
 };
 </script>
 <script setup>

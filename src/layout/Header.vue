@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <div class="logo">天依七日杀服务器管理系统</div>
+        <div class="logo">{{ title }}</div>
         <div class="breadcrumb">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item v-for="(item, index) in breadcrumbs" :key="index" class="breadcrumb-separator">{{ item }}</el-breadcrumb-item>
@@ -24,12 +24,10 @@
 </template>
 
 <script setup>
-import { computed, ref, watch, reactive } from 'vue';
-import { useStore } from 'vuex';
-import { useRoute, useRouter } from 'vue-router';
 import myconfirm from '../utils/myconfirm';
-import Icon from '../components/Icon.vue';
 import { getMenuByName } from '../utils/menus';
+
+const title = import.meta.env.VITE_APP_TITEL;
 
 const store = useStore();
 const route = useRoute();
@@ -61,8 +59,8 @@ const handleCommand = async (command) => {
     switch (command) {
         case 'logout':
             await myconfirm('您确定要退出登录吗?');
-            store.state.activePages = [];
-            router.push({ name: 'login' });
+            keepAliveStore.activePages = [];
+            router.push('/login');
             break;
     }
 };

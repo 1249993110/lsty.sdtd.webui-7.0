@@ -1,5 +1,5 @@
 import { getGameStats } from '../../api/server-manage';
-import { emitter, eventTypes } from '../../utils/event-hub';
+import { emitter, eventTypes } from '../event-hub';
 
 L.Control.GameTime = L.Control.extend({
     options: {

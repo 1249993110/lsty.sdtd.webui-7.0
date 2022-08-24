@@ -22,7 +22,7 @@
 
 <script>
 export default {
-    name: 'global-settings',
+    name: 'Functions.GlobalSettings',
 };
 </script>
 

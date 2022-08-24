@@ -4,16 +4,16 @@
             <Header></Header>
         </el-header>
         <el-container style="height: calc(100% - 48px)">
-            <el-aside>
-                <Aside></Aside>
+            <el-aside width="210px">
+                <Sidebar></Sidebar>
             </el-aside>
             <el-container>
                 <el-main>
                     <Main></Main>
-                    <div class="router-view">
+                    <div class="router-view-container">
                         <router-view v-slot="{ Component }">
                             <transition mode="out-in">
-                                <keep-alive :include="keepAlive">
+                                <keep-alive :include="includes">
                                     <component :is="Component" />
                                 </keep-alive>
                             </transition>
@@ -29,17 +29,14 @@
 </template>
 
 <script setup>
-import Aside from './Aside.vue';
+import Sidebar from './Sidebar.vue';
 import Header from './Header.vue';
 import Main from './Main.vue';
 import Footer from './Footer.vue';
-import { ref, computed } from 'vue';
-import { useStore } from 'vuex';
+import { useKeepAliveStore } from '../store/keep-alive';
 
-const store = useStore();
-const keepAlive = computed(() => {
-    return store.getters['getActivePages'];
-});
+const keepAliveStore = useKeepAliveStore();
+const includes = computed(() => keepAliveStore.includes);
 </script>
 
 <style scoped>
@@ -51,15 +48,11 @@ const keepAlive = computed(() => {
     padding: 0;
 }
 
-.el-aside {
-    width: 210px;
-}
-
 .el-main {
     --el-main-padding: 6px;
 }
 
-.router-view {
+.router-view-container {
     height: calc(100% - 56px);
 }
 </style>

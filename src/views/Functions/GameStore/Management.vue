@@ -41,7 +41,7 @@
 
 <script>
 export default {
-    name: 'goods-management',
+    name: 'Functions.GameStore.GoodsManagement',
 };
 </script>
 

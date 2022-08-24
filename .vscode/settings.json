@@ -6,7 +6,7 @@
   "prettier.singleQuote": true,
   "prettier.semi": true,
   "prettier.tabWidth": 4,
-  "prettier.printWidth": 160,
+  "prettier.printWidth": 180,
   "files.exclude":{
     "**/.git": true,
     "**/.svn": true,
@@ -14,6 +14,7 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    "**/node_modules": true
+    "**/node_modules": true,
+    "**/dist": true,
   }
 }

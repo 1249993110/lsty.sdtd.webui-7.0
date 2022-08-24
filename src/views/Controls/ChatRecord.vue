@@ -32,13 +32,12 @@
 </template>
 <script>
 export default {
-    name: 'chat-record',
+    name: 'Controls.ChatRecord',
 };
 </script>
 <script setup>
 import { ref, nextTick, reactive } from 'vue';
 import { getChatRecord } from '../../api/chat-record';
-import { ElMessage } from 'element-plus';
 
 const tableData = ref([]);
 

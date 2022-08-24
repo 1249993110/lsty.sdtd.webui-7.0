@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'live-map',
+    name: 'Controls.LiveMap',
 };
 </script>
 

@@ -1,154 +1,141 @@
-// 菜单名称对应视图组件名称
-export const menus = [
+import { defineStore } from 'pinia';
+
+// menu = {
+//     path: ,
+//     label: ,
+//     icon: ,
+//     children: ,
+//     isExternalLink: ,
+// }
+
+const tree = [
     {
-        name: 'controls',
+        path: '/controls',
         label: '控制面板',
         icon: 'control',
         children: [
             {
-                name: 'live-map',
+                path: 'live-map',
                 label: 'GPS地图',
                 icon: 'map-location',
-                parentName: 'controls',
             },
             {
-                name: 'online-players',
+                path: 'online-players',
                 label: '在线玩家',
                 icon: 'user',
-                parentName: 'controls',
             },
             {
-                name: 'history-players',
+                path: 'history-players',
                 label: '历史玩家',
                 icon: 'user-solid',
-                parentName: 'controls',
             },
             {
-                name: 'live-chat',
+                path: 'live-chat',
                 label: '实时聊天',
                 icon: 'chat-dot-square',
-                parentName: 'controls',
             },
             {
-                name: 'chat-record',
+                path: 'chat-record',
                 label: '聊天记录',
                 icon: 'chat-line-square',
-                parentName: 'controls',
             },
             {
-                name: 'console',
+                path: 'console',
                 label: '控制台',
                 icon: 'console',
-                parentName: 'controls',
             },
             {
-                name: 'item-blocks',
+                path: 'item-blocks',
                 label: '物品方块',
                 icon: 'list',
-                parentName: 'controls',
             },
         ],
     },
     {
-        name: 'functions',
+        path: '/functions',
         label: '功能面板',
         icon: 'menu',
         children: [
             {
-                name: 'global-settings',
+                path: 'global-settings',
                 label: '全局配置',
                 icon: 'settings',
-                parentName: 'functions',
             },
             {
-                name: 'points-system',
+                path: 'points-system',
                 label: '积分系统',
                 icon: 'coin',
-                parentName: 'functions',
                 children: [
                     {
-                        name: 'points-system-settings',
+                        path: 'settings',
                         label: '配置',
                         icon: 'settings',
-                        parentName: 'points-system',
                     },
                     {
-                        name: 'points-system-management',
+                        path: 'management',
                         label: '管理',
                         icon: 's-management',
-                        parentName: 'points-system',
                     },
                 ],
             },
             {
-                name: 'game-store',
+                path: 'game-store',
                 label: '游戏商店',
                 icon: 'goods',
-                parentName: 'functions',
                 children: [
                     {
-                        name: 'game-store-settings',
+                        path: 'settings',
                         label: '配置',
                         icon: 'settings',
-                        parentName: 'game-store',
                     },
                     {
-                        name: 'game-store-management',
+                        path: 'management',
                         label: '管理',
                         icon: 's-management',
-                        parentName: 'game-store',
                     },
                 ],
             },
             {
-                name: 'tele-system',
+                path: 'tele-system',
                 label: '传送系统',
                 icon: 'position',
-                parentName: 'functions',
                 children: [
                     {
-                        name: 'tele-system-friend-settings',
+                        path: 'friend/settings',
                         label: '好友传送',
                         icon: 'friend',
-                        parentName: 'tele-system',
                     },
                     {
-                        name: 'tele-system-city',
+                        path: 'city',
                         label: '城市传送',
                         icon: 'city',
-                        parentName: 'tele-system',
                         children: [
                             {
-                                name: 'tele-system-city-settings',
+                                path: 'settings',
                                 label: '配置',
                                 icon: 'settings',
-                                parentName: 'tele-system-city',
                             },
                             {
-                                name: 'tele-system-city-management',
+                                path: 'management',
                                 label: '管理',
                                 icon: 's-management',
-                                parentName: 'tele-system-city',
                             },
                         ],
                     },
                     {
-                        name: 'tele-system-home',
+                        path: 'home',
                         label: '私人传送',
                         icon: 'home',
-                        parentName: 'tele-system',
                         children: [
                             {
-                                name: 'tele-system-home-settings',
+                                path: 'settings',
                                 label: '配置',
                                 icon: 'settings',
-                                parentName: 'tele-system-home',
                             },
                             {
-                                name: 'tele-system-home-management',
+                                path: 'management',
                                 label: '管理',
                                 icon: 's-management',
-                                parentName: 'tele-system-home',
                             },
                         ],
                     },
@@ -157,26 +144,43 @@ export const menus = [
         ],
     },
     {
-        name: 'api-document',
+        path: import.meta.env.VITE_APP_SWAGGER_URL,
         label: '接口文档',
-        url: import.meta.env.VITE_APP_SWAGGER_URL,
         icon: 'document',
         isExternalLink: true,
     },
 ];
 
-const menuDict = {};
-const foreach = (menus) => {
+const dict = {};
+
+const foreachMenus = (menus, parentPath) => {
     for (let i = 0, len = menus.length; i < len; i++) {
         const menu = menus[i];
-        menuDict[menu.name] = menu;
+        if (parentPath && menu.path && menu.path[0] !== '/') {
+            menu.path += parentPath;
+        }
+
+        dict[menu.path] = menu;
+
         if (menu.children && menu.children.length) {
-            foreach(menu.children);
+            foreachMenus(menu.children, menu.path);
         }
     }
 };
-foreach(menus);
 
-export const getMenuByName = (name) => {
-    return menuDict[name];
-};
+foreachMenus(tree);
+
+export const useMenusStore = defineStore('menus', {
+    state: () => {
+        return {
+            tree: tree,
+            dict: dict,
+        };
+    },
+    getters: {},
+    actions: {
+        getMenuByPath(path) {
+            return this.dict[path];
+        },
+    },
+});

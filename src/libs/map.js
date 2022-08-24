@@ -1,5 +1,5 @@
-import 'leaflet/dist/leaflet.js';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet/dist/leaflet.js';
 import 'leaflet.zoomslider/src/L.Control.Zoomslider.css';
 import 'leaflet.zoomslider/src/L.Control.Zoomslider.js';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';

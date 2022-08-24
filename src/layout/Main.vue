@@ -1,5 +1,5 @@
 <template>
-    <el-tabs closable v-model="selectedTab" type="card" @tab-remove="removeTab">
+    <el-tabs closable v-model="selectedTab" type="card" @tab-remove="handleRemoveTab">
         <el-tab-pane v-for="(item, index) in tabs" :key="index" :name="item.name">
             <template #label>
                 <Icon class="icon" :name="item.icon"></Icon>
@@ -10,9 +10,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-import { useRoute, useRouter } from 'vue-router';
+import { useKeepAliveStore } from '../store/keep-alive';
 import { getMenuByName } from '../utils/menus';
 
 const store = useStore();
@@ -21,7 +19,7 @@ const router = useRouter();
 
 const selectedTab = computed({
     get: () => route.name,
-    set: (name) => router.push({ name: name }),
+    set: (path) => router.push(path),
 });
 
 const tabs = computed(() => {
@@ -38,8 +36,8 @@ const tabs = computed(() => {
     return result;
 });
 
-const removeTab = (name) => {
-    store.commit('removeActivePage', name);
+const handleRemoveTab = (path) => {
+    keepAliveStore.removePage(path);
 };
 </script>
 
