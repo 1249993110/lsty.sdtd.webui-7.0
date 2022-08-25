@@ -13,9 +13,9 @@ import './assets/iconfont/iconfont';
 import './assets/styles/global.scss';
 
 const app = createApp(App);
-useElementPlus(app);
 app.use(createPinia());
 app.use(router);
+useElementPlus(app);
 app.component('Icon', Icon);
 app.mount('#app');
 

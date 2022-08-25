@@ -34,7 +34,6 @@ export default {
 </script>
 
 <script setup>
-import { ref, reactive, watch, onDeactivated } from 'vue';
 import { getItemBlocks } from '../../api/server-manage';
 import { ElMessage, ElLoading } from 'element-plus';
 

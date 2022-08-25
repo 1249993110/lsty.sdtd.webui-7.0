@@ -1,6 +1,6 @@
 <template>
     <el-tabs closable v-model="selectedTab" type="card" @tab-remove="handleRemoveTab">
-        <el-tab-pane v-for="(item, index) in tabs" :key="index" :name="item.name">
+        <el-tab-pane v-for="item in tabs" :key="item.path" :name="item.path">
             <template #label>
                 <Icon class="icon" :name="item.icon"></Icon>
                 <span>{{ item.label }}</span>
@@ -11,28 +11,27 @@
 
 <script setup>
 import { useKeepAliveStore } from '../store/keep-alive';
-import { getMenuByName } from '../utils/menus';
+import { useMenusStore } from '../store/menus';
 
-const store = useStore();
+const keepAliveStore = useKeepAliveStore();
 const route = useRoute();
 const router = useRouter();
+const menusStore = useMenusStore();
 
 const selectedTab = computed({
-    get: () => route.name,
+    get: () => route.path,
     set: (path) => router.push(path),
 });
 
 const tabs = computed(() => {
-    const pages = store.getters['getActivePages'];
     const result = [];
-    pages.forEach((i) => {
-        const menu = getMenuByName(i);
-        result.push({
-            name: menu.name,
-            label: menu.label,
-            icon: menu.icon,
-        });
+    keepAliveStore.paths.forEach((path) => {
+        const menu = menusStore.getMenuByPath(path);
+        if(menu){
+            result.push(menu);
+        }
     });
+    
     return result;
 });
 

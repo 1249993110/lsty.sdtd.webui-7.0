@@ -47,11 +47,9 @@ export default {
 </script>
 
 <script setup>
-import { ref, reactive } from 'vue';
 import * as api from '../../../api/points-system';
 import { Edit, Plus, Delete, Search, Refresh, FolderAdd } from '@element-plus/icons-vue';
-import AddOrEditPoints from '../../../components/PointsSystem/AddOrEditPoints.vue';
-import myconfirm from '../../../utils/myconfirm';
+import myconfirm from '../../../libs/myconfirm';
 
 const tableData = ref([]);
 

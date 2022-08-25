@@ -27,7 +27,6 @@ export default {
 </script>
 
 <script setup>
-import { ref, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
 import { editGlobalSettings, getGlobalSettings } from '../../api/global-settings';
 

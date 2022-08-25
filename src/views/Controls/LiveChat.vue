@@ -15,10 +15,9 @@ export default {
 </script>
 
 <script setup>
-import { ref, reactive, onActivated, onDeactivated } from 'vue';
 import { sendGlobalMessage } from '../../api/server-manage';
 import moment from 'moment';
-import { emitter, eventTypes } from '../../utils/event-hub';
+import { emitter, eventTypes } from '../../libs/event-hub';
 
 let contentCount = 0;
 const contentMaxCount = 1000;

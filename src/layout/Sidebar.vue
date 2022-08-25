@@ -1,46 +1,44 @@
 <template>
-    <div class="aside">
+    <div class="sidebar">
         <el-menu
             class="menu"
-            :default-active="selectedMenu"
+            :default-active="activeMenu"
             @select="handleSelectMenu"
             background-color="#001529"
             text-color="#fff"
             active-text-color="#ffd04b"
+            unique-opened
         >
             <MenuTree :items="items"></MenuTree>
         </el-menu>
     </div>
 </template>
 
+
 <script setup>
-import { computed } from 'vue';
-import MenuItem from './MenuItem.vue';
-import { useStore } from 'vuex';
-import { useRoute } from 'vue-router';
-import { menus, getMenuByName } from '../utils/menus';
+import { useMenusStore } from '../store/menus';
+import { useKeepAliveStore } from '../store/keep-alive';
 
-const store = useStore();
 const route = useRoute();
+const menusStore = useMenusStore();
+const keepAliveStore = useKeepAliveStore();
 
-const selectedMenu = computed(() => {
-    return route.name;
-});
+const activeMenu = computed(() => route.path);
 
-const items = menus;
+const items = computed(() => menusStore.tree);
 
-const handleSelectMenu = (menuName) => {
-    const menu = getMenuByName(menuName);
+const handleSelectMenu = (path) => {
+    const menu = menusStore.getMenuByPath(path);
     if (menu.isExternalLink) {
-        window.open(menu.url);
+        window.open(menu.path);
     } else {
-        store.commit('addActivePage', menuName);
+        keepAliveStore.addPage(path);
     }
 };
 </script>
 
 <style scoped lang="scss">
-.aside {
+.sidebar {
     height: 100%;
     .menu {
         min-height: 100%;

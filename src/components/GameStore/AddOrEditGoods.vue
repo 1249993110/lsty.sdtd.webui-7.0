@@ -27,7 +27,6 @@
 </template>
 
 <script setup>
-import { ref, reactive, nextTick, watch, computed } from 'vue';
 import { ElMessage, ElLoading } from 'element-plus';
 import * as api from '../../api/game-store';
 

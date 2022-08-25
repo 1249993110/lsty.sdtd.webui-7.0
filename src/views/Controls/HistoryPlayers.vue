@@ -49,18 +49,19 @@
         </vue3-menus>
     </div>
 </template>
+
 <script>
 export default {
     name: 'Controls.HistoryPlayers',
 };
 </script>
+
 <script setup>
-import { ref, nextTick, reactive } from 'vue';
 import { getHistoryPlayers } from '../../api/players';
 import { Vue3Menus } from 'vue3-menus';
 import { showInventory } from '../../components/Inventory';
-import myprompt from '../../utils/myprompt';
-import myconfirm from '../../utils/myconfirm';
+import myprompt from '../../libs/myprompt';
+import myconfirm from '../../libs/myconfirm';
 import { ElMessage } from 'element-plus';
 
 const tableData = ref([]);

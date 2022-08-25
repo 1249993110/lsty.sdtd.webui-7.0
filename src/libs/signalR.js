@@ -1,8 +1,6 @@
 import { LogLevel, HubConnectionBuilder, HttpTransportType } from '@microsoft/signalr';
-import useUserInfoStore from '../store/user-info';
+import { useUserInfoStore } from '../store/user-info';
 import { emitter, eventTypes } from './event-hub';
-
-const userInfoStore = useUserInfoStore();
 
 const createConnection = (accessToken) => {
     const url = import.meta.env.VITE_APP_SIGNALR_URL + '?access-token=' + accessToken;
@@ -43,7 +41,7 @@ let connection;
 
 export async function start() {
     try {
-        const accessToken = userInfoStore.accessToken;
+        const accessToken = useUserInfoStore().accessToken;
         if (accessToken) {
             if (!connection) {
                 connection = createConnection();

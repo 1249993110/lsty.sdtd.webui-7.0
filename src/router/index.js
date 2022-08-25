@@ -3,7 +3,7 @@ import nProgress from '../plugins/nprogress';
 import Layout from '../layout/Index.vue';
 import Home from '../views/Home.vue';
 import { useUserInfoStore } from '../store/user-info';
-import { usekeepAliveStore } from '../store/keep-alive';
+import { useKeepAliveStore } from '../store/keep-alive';
 
 // 有name的即需要keep-alive的, 对应views组件名称
 // 将routes拍平以解决缓存层级超过两层失效
@@ -169,17 +169,15 @@ const router = createRouter({
     routes,
 });
 
-const userInfoStore = useUserInfoStore();
-
 router.beforeEach((to, from, next) => {
     nProgress.start();
     if (to.path === '/login') {
-        userInfoStore.setAccessToken('');
+        useUserInfoStore().setAccessToken('');
         next();
-    } else if (!userInfoStore.isLogin) {
+    } else if (!useUserInfoStore().isLogin) {
         next('/login');
     } else {
-        const keepAliveStore = usekeepAliveStore();
+        const keepAliveStore = useKeepAliveStore();
         if (keepAliveStore.activePages.length === 0 && to.name) {
             keepAliveStore.addPage(to.path);
         }

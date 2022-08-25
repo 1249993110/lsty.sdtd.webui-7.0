@@ -46,11 +46,9 @@ export default {
 </script>
 
 <script setup>
-import { ref, reactive } from 'vue';
 import * as api from '../../../api/game-store';
 import { Edit, Plus, Delete } from '@element-plus/icons-vue';
-import AddOrEditGoods from '../../../components/GameStore/AddOrEditGoods.vue';
-import myconfirm from '../../../utils/myconfirm';
+import myconfirm from '../../../libs/myconfirm';
 
 const tableData = ref([]);
 

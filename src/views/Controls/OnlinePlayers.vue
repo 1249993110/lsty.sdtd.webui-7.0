@@ -33,15 +33,14 @@ export default {
 </script>
 
 <script setup>
-import { ref, nextTick } from 'vue';
 import { Vue3Menus } from 'vue3-menus';
 import * as sdtdConsole from '../../api/sdtd-console';
 import { getOnlinePlayers } from '../../api/players';
 import { showInventory } from '../../components/Inventory';
-import myprompt from '../../utils/myprompt';
-import myconfirm from '../../utils/myconfirm';
+import myprompt from '../../libs/myprompt';
+import myconfirm from '../../libs/myconfirm';
 import { ElMessage } from 'element-plus';
-import { emitter, eventTypes } from '../../utils/event-hub';
+import { emitter, eventTypes } from '../../libs/event-hub';
 
 const tableData = ref([]);
 

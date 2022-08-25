@@ -24,36 +24,44 @@
 </template>
 
 <script setup>
-import myconfirm from '../utils/myconfirm';
-import { getMenuByName } from '../utils/menus';
+import myconfirm from '../libs/myconfirm';
+import { useMenusStore } from '../store/menus.js';
+
+const menusStore = useMenusStore();
 
 const title = import.meta.env.VITE_APP_TITEL;
 
-const store = useStore();
 const route = useRoute();
 const router = useRouter();
 
-const breadcrumbs = reactive([]);
-
-const getBreadcrumbs = (result, menuName) => {
-    const menu = getMenuByName(menuName);
-    if (menu) {
-        result.unshift(menu.label);
-        if (menu.parentName) {
-            getBreadcrumbs(result, menu.parentName);
+const getBreadcrumbs = (tree, path) => {
+    const parentNodes = []; // 存储父节点
+    let isFound = false; // 是否已找到要查到的节点
+    const findParentNode = function (array, path) {
+        array.forEach((item) => {
+            if (isFound) {
+                return;
+            }
+            parentNodes.push(item);
+            if (item.path === path) {
+                isFound = true;
+            } else if (item.children) {
+                findParentNode(item.children, path);
+            } else {
+                parentNodes.pop();
+            }
+        });
+        if (!isFound) {
+            parentNodes.pop();
         }
-    }
+    };
+    findParentNode(tree, path);
+    return parentNodes.map((item) => item.label);
 };
 
-getBreadcrumbs(breadcrumbs, route.name);
-
-watch(
-    () => route.name,
-    (menuName) => {
-        breadcrumbs.length = 0;
-        getBreadcrumbs(breadcrumbs, menuName);
-    }
-);
+const breadcrumbs = computed(() => {
+    return getBreadcrumbs(menusStore.tree, route.path);
+});
 
 const handleCommand = async (command) => {
     switch (command) {

@@ -5,8 +5,8 @@
                 <el-switch v-model="formModel.isEnabled" />
             </el-form-item>
             <el-form-item label="可用变量">
-                <el-tooltip v-for="(item, index) in variables" :key="index" placement="bottom-start" :show-after="500" :content="item.value">
-                    <el-tag class="tag">{{ item.key }}</el-tag>
+                <el-tooltip v-for="(item, index) in variables" :key="index" placement="bottom-start" :show-after="500" :content="item">
+                    <el-tag class="tag">{{ '{' + index + '}' }}</el-tag>
                 </el-tooltip>
             </el-form-item>
             <el-form-item label="查询列表命令" prop="queryListCmd" required>
@@ -41,7 +41,6 @@ export default {
 </script>
 
 <script setup>
-import { ref, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
 import * as api from '../../../api/game-store';
 
@@ -66,6 +65,7 @@ const save = async () => {
 const variables = ref([]);
 api.getVariables()
     .then((data) => {
+        console.log(data);
         variables.value = data;
     })
     .catch((error) => {});

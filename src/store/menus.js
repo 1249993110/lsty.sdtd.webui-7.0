@@ -10,6 +10,11 @@ import { defineStore } from 'pinia';
 
 const tree = [
     {
+        path: '/home',
+        label: '主页',
+        icon: 'home',
+    },
+    {
         path: '/controls',
         label: '控制面板',
         icon: 'control',
@@ -157,7 +162,7 @@ const foreachMenus = (menus, parentPath) => {
     for (let i = 0, len = menus.length; i < len; i++) {
         const menu = menus[i];
         if (parentPath && menu.path && menu.path[0] !== '/') {
-            menu.path += parentPath;
+            menu.path = parentPath + '/' + menu.path;
         }
 
         dict[menu.path] = menu;

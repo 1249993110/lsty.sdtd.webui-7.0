@@ -36,7 +36,6 @@ export default {
 };
 </script>
 <script setup>
-import { ref, nextTick, reactive } from 'vue';
 import { getChatRecord } from '../../api/chat-record';
 
 const tableData = ref([]);

@@ -2,9 +2,7 @@ import axios from 'axios';
 import nProgress from '../plugins/nprogress';
 import { ElMessage } from 'element-plus';
 import router from '../router';
-import useUserInfoStore from '../store/user-info';
-
-const userInfoStore = useUserInfoStore();
+import {useUserInfoStore} from '../store/user-info';
 
 const service = axios.create({
     baseURL: import.meta.env.VITE_APP_API_BASE_URL,
@@ -14,7 +12,7 @@ const service = axios.create({
 service.interceptors.request.use(
     (config) => {
         nProgress.start();
-        config.headers['access-token'] = userInfoStore.accessToken;
+        config.headers['access-token'] = useUserInfoStore().accessToken;
         return config;
     },
     (error) => {

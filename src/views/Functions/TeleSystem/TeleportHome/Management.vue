@@ -48,11 +48,9 @@ export default {
 </script>
 
 <script setup>
-import { ref, reactive } from 'vue';
 import * as api from '../../../../api/teleport-home';
 import { Edit, Plus, Delete, Search, Refresh, FolderAdd } from '@element-plus/icons-vue';
-import AddOrEditHomePositions from '../../../../components/TeleSystem/AddOrEditHomePositions.vue';
-import myconfirm from '../../../../utils/myconfirm';
+import myconfirm from '../../../../libs/myconfirm';
 
 const tableData = ref([]);
 

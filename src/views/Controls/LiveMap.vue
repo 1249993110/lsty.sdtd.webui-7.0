@@ -11,8 +11,7 @@ export default {
 </script>
 
 <script setup>
-import { onMounted } from 'vue';
-import { initMap } from '../../lib/map';
+import { initMap } from '../../libs/map';
 import { getMapInfo } from '../../api/map';
 
 onMounted(async () => {
