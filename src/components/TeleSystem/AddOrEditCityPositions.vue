@@ -87,7 +87,7 @@ const submit = async () => {
         if (isAdd.value) {
             await api.addCityPosition(formModel);
         } else {
-            await api.editCityPosition(formModel);
+            await api.updateCityPosition(formModel);
         }
 
         ElMessage.success('保存成功');

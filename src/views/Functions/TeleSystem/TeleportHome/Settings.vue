@@ -99,7 +99,7 @@ api.getTeleportHomeSettings()
 const save = async () => {
     try {
         await formRef.value.validate();
-        await api.editTeleportHomeSettings(formModel);
+        await api.updateTeleportHomeSettings(formModel);
         ElMessage.success('保存成功');
     } catch {}
 };

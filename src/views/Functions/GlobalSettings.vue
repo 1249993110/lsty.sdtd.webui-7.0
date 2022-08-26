@@ -28,7 +28,7 @@ export default {
 
 <script setup>
 import { ElMessage } from 'element-plus';
-import { editGlobalSettings, getGlobalSettings } from '../../api/global-settings';
+import { updateGlobalSettings, getGlobalSettings } from '../../api/global-settings';
 
 const formModel = reactive({
     serverName: '',
@@ -52,7 +52,7 @@ getGlobalSettings()
 const save = async () => {
     try {
         await formRef.value.validate();
-        await editGlobalSettings(formModel);
+        await updateGlobalSettings(formModel);
         ElMessage.success('保存成功');
     } catch {}
 };

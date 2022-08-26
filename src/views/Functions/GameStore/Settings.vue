@@ -57,7 +57,7 @@ api.getGameStoreSettings()
 const save = async () => {
     try {
         await formRef.value.validate();
-        await api.editGameStoreSettings(formModel);
+        await api.updateGameStoreSettings(formModel);
         ElMessage.success('保存成功');
     } catch {}
 };

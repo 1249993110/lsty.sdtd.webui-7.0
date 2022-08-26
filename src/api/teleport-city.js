@@ -9,10 +9,10 @@ export const getTeleportCitySettings = () => {
 };
 
 /**
- * 修改城市传送配置
+ * 更新城市传送配置
  * @returns
  */
- export const editTeleportCitySettings = (params) => {
+ export const updateTeleportCitySettings = (params) => {
     return http.put('/TeleportCity/Settings', params);
 };
 
@@ -66,9 +66,9 @@ export const deleteCityPositionByIds = (ids) => {
 };
 
 /**
- * 修改城市
+ * 更新城市
  * @returns
  */
- export const editCityPosition = (params) => {
+ export const updateCityPosition = (params) => {
     return http.put('/TeleportCity/CityPosition', params);
 };

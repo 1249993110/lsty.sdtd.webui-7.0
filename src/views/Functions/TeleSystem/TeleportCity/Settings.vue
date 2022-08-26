@@ -74,7 +74,7 @@ api.getTeleportCitySettings()
 const save = async () => {
     try {
         await formRef.value.validate();
-        await api.editTeleportCitySettings(formModel);
+        await api.updateTeleportCitySettings(formModel);
         ElMessage.success('保存成功');
     } catch {}
 };

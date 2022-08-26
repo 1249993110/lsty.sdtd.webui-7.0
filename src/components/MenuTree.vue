@@ -1,5 +1,5 @@
 <template>
-    <template v-for="(menu,index) in items" :key="index">
+    <template v-for="(menu, index) in items" :key="index">
         <el-sub-menu v-if="menu.children && menu.children.length" :index="menu.path || index.toString()">
             <template #title>
                 <Icon class="menu-icon" :name="menu.icon"></Icon>
@@ -17,11 +17,9 @@
 </template>
 
 <script setup>
-
 defineProps({
     items: Array,
 });
-
 </script>
 
 <style scoped>

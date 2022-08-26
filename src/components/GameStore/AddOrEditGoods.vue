@@ -49,7 +49,7 @@ const submit = async () => {
         if (isAdd.value) {
             await api.addGoods(formModel);
         } else {
-            await api.editGoods(formModel);
+            await api.updateGoods(formModel);
         }
 
         ElMessage.success('保存成功');

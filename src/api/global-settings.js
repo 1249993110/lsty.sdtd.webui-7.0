@@ -9,9 +9,9 @@ export const getGlobalSettings = () => {
 };
 
 /**
- * 修改全局配置
+ * 更新全局配置
  * @returns
  */
- export const editGlobalSettings = (params) => {
+ export const updateGlobalSettings = (params) => {
     return http.put('/GlobalSettings/Settings', params);
 };

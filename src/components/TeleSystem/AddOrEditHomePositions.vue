@@ -80,7 +80,7 @@ const submit = async () => {
         if (isAdd.value) {
             await api.addHomePosition(formModel);
         } else {
-            await api.editHomePosition(formModel);
+            await api.updateHomePosition(formModel);
         }
 
         ElMessage.success('保存成功');

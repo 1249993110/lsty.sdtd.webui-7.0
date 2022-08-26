@@ -9,10 +9,10 @@ export const getPointsSystemSettings = () => {
 };
 
 /**
- * 修改积分系统配置
+ * 更新积分系统配置
  * @returns
  */
-export const editPointsSystemSettings = (params) => {
+export const updatePointsSystemSettings = (params) => {
     return http.put('/PointsSystem/Settings', params);
 };
 
@@ -65,9 +65,9 @@ export const deletePointsByEntityIds = (entityIds) => {
 };
 
 /**
- * 修改积分
+ * 更新积分
  * @returns
  */
- export const editPoints = (params) => {
+ export const updatePoints = (params) => {
     return http.put('/PointsSystem/Points', params);
 };

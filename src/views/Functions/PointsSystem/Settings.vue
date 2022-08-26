@@ -70,7 +70,7 @@ api.getPointsSystemSettings()
 const save = async () => {
     try {
         await formRef.value.validate();
-        await api.editPointsSystemSettings(formModel);
+        await api.updatePointsSystemSettings(formModel);
         ElMessage.success('保存成功');
     } catch {}
 };

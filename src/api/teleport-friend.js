@@ -9,10 +9,10 @@ export const getTeleportFriendSettings = () => {
 };
 
 /**
- * 修改好友传送配置
+ * 更新好友传送配置
  * @returns
  */
- export const editTeleportFriendSettings = (params) => {
+ export const updateTeleportFriendSettings = (params) => {
     return http.put('/TeleportFriend/Settings', params);
 };
 

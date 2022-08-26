@@ -9,10 +9,10 @@ export const getGameStoreSettings = () => {
 };
 
 /**
- * 修改游戏商店配置
+ * 更新游戏商店配置
  * @returns
  */
-export const editGameStoreSettings = (params) => {
+export const updateGameStoreSettings = (params) => {
     return http.put('/GameStore/Settings', params);
 };
 
@@ -65,9 +65,9 @@ export const deleteGoodsByIds = (ids) => {
 };
 
 /**
- * 修改商品
+ * 更新商品
  * @returns
  */
- export const editGoods = (params) => {
+ export const updateGoods = (params) => {
     return http.put('/GameStore/Goods', params);
 };

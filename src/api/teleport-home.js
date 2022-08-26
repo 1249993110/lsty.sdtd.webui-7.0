@@ -9,10 +9,10 @@ export const getTeleportHomeSettings = () => {
 };
 
 /**
- * 修改私人传送配置
+ * 更新私人传送配置
  * @returns
  */
- export const editTeleportHomeSettings = (params) => {
+ export const updateTeleportHomeSettings = (params) => {
     return http.put('/TeleportHome/Settings', params);
 };
 
@@ -66,9 +66,9 @@ export const deleteHomePositionByIds = (ids) => {
 };
 
 /**
- * 修改私人
+ * 更新私人
  * @returns
  */
- export const editHomePosition = (params) => {
+ export const updateHomePosition = (params) => {
     return http.put('/TeleportHome/HomePosition', params);
 };
